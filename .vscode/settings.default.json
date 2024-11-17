@@ -1,4 +1,4 @@
 {
   "eslint.useFlatConfig": true,
-  "cSpell.words": ["mdhs", "mdhsg"]
+  "cSpell.words": ["mdhs", "mdhsg", "buildable"]
 }
