@@ -1,10 +1,20 @@
 import type { Task } from "./type.js";
 
 async function main(args: string[]): Promise<void> {
-  if (!Array.isArray(args) || args.length !== 1) {
+  if (!Array.isArray(args) || args.length !== 2) {
     throw new Error(`Invalid args: ${JSON.stringify(args)}`);
   }
-  const task: Task = await import(`./task/${args}.js`);
+  const series = args[0];
+  if (!series) {
+    throw new Error(`Invalid series: ${series}`);
+  }
+  const episodeNumStr = args[1];
+  const episodeNum = Number.parseInt(episodeNumStr ?? "");
+  if (Number.isNaN(episodeNum)) {
+    throw new Error(`Invalid episodeNum: ${series}`);
+  }
+  const module = await import(`./task/${args}.js`);
+  const task = module.task as Task;
   console.log(task);
 }
 
