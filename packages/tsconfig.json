@@ -1,4 +1,8 @@
 {
   "extends": "../tsconfig",
-  "references": [{ "path": "./core" }]
+  "references": [
+    { "path": "./browser" },
+    { "path": "./core" },
+    { "path": "./task" }
+  ]
 }

@@ -1,32 +1,26 @@
 {
-  "name": "@joshuaavalon/mdhsg-core",
+  "name": "@joshuaavalon/mdhsg-task",
   "version": "1.0.0",
   "description": "",
   "type": "module",
   "private": true,
   "types": "./dist/index.d.ts",
   "module": "./dist/index.js",
-  "scripts": {},
+  "scripts": {
+    "run": "node ./dist/index.js"
+  },
   "imports": {},
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    },
-    "./builder": {
-      "types": "./dist/builder.d.ts",
-      "import": "./dist/builder.js"
-    },
-    "./error": {
-      "types": "./dist/error.d.ts",
-      "import": "./dist/error.js"
     }
   },
   "homepage": "https://github.com/joshuaavalon/mdhsg#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/joshuaavalon/mdhsg.git",
-    "directory": "packages/core"
+    "directory": "packages/task"
   },
   "bugs": {
     "url": "https://github.com/joshuaavalon/mdhsg/issues"
@@ -39,12 +33,7 @@
   "author": "Joshua Avalon",
   "license": "Apache-2.0",
   "dependencies": {
-    "@sinclair/typebox": "^0.34.0",
-    "luxon": "^3.5.0",
-    "pino": "^9.5.0",
-    "pino-pretty": "^13.0.0"
+    "@joshuaavalon/mdhsg-core": "^1.0.0"
   },
-  "devDependencies": {
-    "@types/luxon": "^3.4.2"
-  }
+  "devDependencies": {}
 }

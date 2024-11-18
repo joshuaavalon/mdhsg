@@ -8,6 +8,7 @@
     "prebuild": "rimraf --glob packages/*/dist packages/*/tsconfig.tsbuildinfo",
     "build": "tsc --build ./packages/tsconfig.json",
     "test": "npm run --workspaces --if-present test",
+    "run-task": "npm run --workspace @joshuaavalon/mdhsg-task run",
     "lint": "eslint"
   },
   "workspaces": [
@@ -24,7 +25,7 @@
   },
   "homepage": "https://github.com/joshuaavalon/mdhsg#readme",
   "devDependencies": {
-    "@joshuaavalon/eslint-config-typescript": "^9.0.4",
+    "@joshuaavalon/eslint-config-typescript": "^9.0.6",
     "@types/node": "^20.11.28",
     "eslint": "^9.14.0",
     "globals": "^15.12.0",
