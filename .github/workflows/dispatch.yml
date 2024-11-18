@@ -1,4 +1,4 @@
-name: main
+name: Scrape series
 on:
   workflow_dispatch:
     inputs:
