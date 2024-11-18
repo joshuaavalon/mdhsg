@@ -42,7 +42,7 @@ jobs:
         with:
           node-version: latest
       - run: npm ci
-      - run: npm build
+      - run: npm run build
       - run: npm run task -- "${{ inputs.series }}" "${{ matrix.episode-number }}"
       - run: 'echo "{ \"episode\": ${{ matrix.episode-number }} }" > output.json'
       - name: Produce Artifact
@@ -63,7 +63,7 @@ jobs:
         with:
           node-version: latest
       - run: npm ci
-      - run: npm build
+      - run: npm run build
       - uses: actions/download-artifact@v4
         with:
           path: output
