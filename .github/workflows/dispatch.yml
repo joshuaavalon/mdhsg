@@ -1,0 +1,41 @@
+name: main
+on:
+  workflow_dispatch:
+    inputs:
+      episode-start:
+        description: "Starting Episode"
+        required: true
+        type: number
+      episode-end:
+        description: "Ending Episode"
+        required: true
+        type: number
+      series:
+        description: "Scrape series"
+        type: string
+        required: true
+jobs:
+  init-tasks:
+    name: Initialize tasks from inputs
+    runs-on: ubuntu-latest
+    outputs:
+      episode-numbers: ${{ steps.generate-episode.outputs.output }}
+    if: ${{ inputs.episode-start <= inputs.episode-end }}
+    steps:
+      - name: Generate array of episode numbers
+        id: generate-episode
+        run: echo "output=[$(seq -s, ${{ inputs.episode-start }} ${{ inputs.episode-end }})]" >> "$GITHUB_OUTPUT"
+  scrape-task:
+    name: Scrape task
+    runs-on: ubuntu-latest
+    needs:
+      - init-tasks
+    strategy:
+      matrix:
+        episode-number: ${{ fromJSON(needs.init-tasks.outputs.episode-numbers) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
+      - run: echo "${{ matrix.episode-number }}"
