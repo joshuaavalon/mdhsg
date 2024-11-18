@@ -13,7 +13,7 @@ async function main(args: string[]): Promise<void> {
   if (Number.isNaN(episodeNum)) {
     throw new Error(`Invalid episodeNum: ${series}`);
   }
-  const module = await import(`./task/${args}.js`);
+  const module = await import(`./task/${series}.js`);
   const task = module.task as Task;
   console.log(task);
 }
