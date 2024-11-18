@@ -6,10 +6,12 @@ on:
         description: "Starting Episode"
         required: true
         type: number
+        default: 1
       episode-end:
         description: "Ending Episode"
         required: true
         type: number
+        default: 12
       series:
         description: "Scrape series"
         type: string
@@ -28,6 +30,7 @@ jobs:
   scrape-task:
     name: Scrape task
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs:
       - init-tasks
     strategy:
@@ -38,4 +41,26 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: latest
-      - run: echo "${{ matrix.episode-number }}"
+      - run: 'echo "{ \"episode\": ${{ matrix.episode-number }} }" > output.json'
+      - name: Produce Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.episode-number }}.json
+          path: output.json
+  summarize-result:
+    name: Summarize results
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs:
+      - init-tasks
+      - scrape-task
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
+      - uses: actions/download-artifact@v4
+        with:
+          path: output
+          pattern: "*.json"
+      - run: ls -la ./output
