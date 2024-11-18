@@ -12,8 +12,8 @@ on:
         required: true
         type: number
         default: 12
-      series:
-        description: "Scrape series"
+      series-id:
+        description: "Series Id"
         type: string
         required: true
 jobs:
@@ -43,7 +43,7 @@ jobs:
           node-version: latest
       - run: npm ci
       - run: npm run build
-      - run: npm run task -- "${{ inputs.series }}" "${{ matrix.episode-number }}"
+      - run: npm run run-task -- "${{ inputs.series-id }}" "${{ matrix.episode-number }}"
       - run: 'echo "{ \"episode\": ${{ matrix.episode-number }} }" > output.json'
       - name: Produce Artifact
         uses: actions/upload-artifact@v4
