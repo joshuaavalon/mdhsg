@@ -1,8 +1,11 @@
 import { writeFile } from "node:fs/promises";
+import { join } from "node:path";
 import { BrowserScraper } from "@mdhsg/browser";
 import { LoggableError } from "@mdhsg/core/error";
 import { logger } from "@mdhsg/log";
 import type { Task } from "./type.js";
+
+const baseDir = process.env.GITHUB_WORKSPACE ?? "";
 
 async function main(args: string[]): Promise<void> {
   if (!Array.isArray(args) || args.length !== 2) {
@@ -29,10 +32,10 @@ async function main(args: string[]): Promise<void> {
     if (err instanceof LoggableError) {
       const screenshot = err.getScreenshot();
       if (screenshot) {
-        await writeFile("error.webp", screenshot);
+        await writeFile(join(baseDir, "error.webp"), screenshot);
       }
     }
-    await writeFile("output.json", JSON.stringify(json), { encoding: "utf-8" });
+    await writeFile(join(baseDir, "output.json"), JSON.stringify(json), { encoding: "utf-8" });
   } finally {
     await browser.close();
     logger.info({ episodeNum }, "End task");
