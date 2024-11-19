@@ -14,6 +14,10 @@ export class BrowserScraper {
     this.browser = browser;
   }
 
+  public async close(): Promise<void> {
+    await this.browser.close();
+  }
+
   public async createPage(opts: Omit<CreatePageScraperOptions, "browser">): Promise<PageScraper> {
     return await PageScraper.create({ ...opts, browser: this.browser });
   }

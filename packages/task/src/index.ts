@@ -1,4 +1,5 @@
 import { writeFile } from "node:fs/promises";
+import { BrowserScraper } from "@mdhsg/browser";
 import { LoggableError } from "@mdhsg/core/error";
 import { logger } from "@mdhsg/log";
 import type { Task } from "./type.js";
@@ -18,8 +19,10 @@ async function main(args: string[]): Promise<void> {
   }
   const module = await import(`./task/${series}.js`);
   const task = module.default as Task;
+  const browser = await BrowserScraper.chromium();
   try {
-    await task.main({ episodeNum });
+    logger.info({ episodeNum }, "Start task");
+    await task.main({ browser, episodeNum });
   } catch (err) {
     logger.error({ episodeNum, err }, "Failed to scrape episode");
     const json = { screenshot: null, success: false };
@@ -30,6 +33,9 @@ async function main(args: string[]): Promise<void> {
       }
     }
     await writeFile("output.json", JSON.stringify(json), { encoding: "utf-8" });
+  } finally {
+    await browser.close();
+    logger.info({ episodeNum }, "End task");
   }
 }
 

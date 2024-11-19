@@ -1,5 +1,11 @@
-import type { MdhsContext, MdhsEpisodeSchema } from "@mdhsg/core";
+import type { BrowserScraper } from "@mdhsg/browser";
+import type { MdhsEpisodeSchema } from "@mdhsg/core";
 
 export interface Task {
-  main: (ctx: MdhsContext) => Promise<MdhsEpisodeSchema>;
+  main: (ctx: TaskContext) => Promise<MdhsEpisodeSchema>;
+}
+
+export interface TaskContext {
+  browser: BrowserScraper;
+  episodeNum: number;
 }
