@@ -102,7 +102,7 @@ export class PageScraper {
     } = opts;
     logger.info("Start creating page");
     const page = await browser.newPage();
-    page.setDefaultTimeout(timeout.milliseconds);
+    page.setDefaultTimeout(timeout.as("millisecond"));
     await page.setViewportSize(viewportSize);
     if (blockTypes.length > 0) {
       page.route("**/*", (route, req) => {
