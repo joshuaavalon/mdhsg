@@ -17,6 +17,10 @@ export class LoggableError extends Error {
     this.screenshot = screenshot;
   }
 
+  public getScreenshot(): Buffer | undefined {
+    return this.screenshot;
+  }
+
   public getScreenshotString(): string | undefined {
     return this.screenshot?.toString("base64");
   }

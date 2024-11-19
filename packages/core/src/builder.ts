@@ -21,7 +21,7 @@ export class Builder<Target extends Record<string, unknown>, Value extends Parti
   }
 
   public build(): Buildable<Target, Value> {
-    return this.value as unknown as Buildable<Target, Value>;
+    return { ...this.value } as unknown as Buildable<Target, Value>;
   }
 
   public static create<Target extends Record<string, unknown>>(): Builder<Target> {
@@ -31,4 +31,7 @@ export class Builder<Target extends Record<string, unknown>, Value extends Parti
 
 export interface ExtendBuilder<Target extends Record<string, unknown>, Attr extends keyof Target> {
   <Value extends Partial<Target>, T extends Builder<Target, Value>>(b: T): Builder<Target, Record<Attr, Target[Attr]> & Value>;
+}
+export interface AsyncExtendBuilder<Target extends Record<string, unknown>, Attr extends keyof Target> {
+  <Value extends Partial<Target>, T extends Builder<Target, Value>>(b: T): Promise<Builder<Target, Record<Attr, Target[Attr]> & Value>>;
 }

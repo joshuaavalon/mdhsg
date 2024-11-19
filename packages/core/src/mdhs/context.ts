@@ -1,5 +1,7 @@
-import type { Logger } from "pino";
-
 export interface MdhsContext {
-  logger: Logger;
+  episodeNum: number;
+}
+
+export function createMdhsContext(episodeNum: number): MdhsContext {
+  return { episodeNum };
 }

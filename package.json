@@ -8,7 +8,7 @@
     "prebuild": "rimraf --glob packages/*/dist packages/*/tsconfig.tsbuildinfo",
     "build": "tsc --build ./packages/tsconfig.json",
     "test": "npm run --workspaces --if-present test",
-    "run-task": "npm run --workspace @joshuaavalon/mdhsg-task run",
+    "run-task": "npm run --workspace @mdhsg/task run",
     "lint": "eslint"
   },
   "workspaces": [

@@ -44,12 +44,19 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run run-task -- "${{ inputs.series-id }}" "${{ matrix.episode-number }}"
-      - run: 'echo "{ \"episode\": ${{ matrix.episode-number }} }" > output.json'
-      - name: Produce Artifact
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
+        id: upload-error-image
+        with:
+          name: ${{ matrix.episode-number }}-error.webp
+          path: error.webp
+          if-no-files-found: ignore
+      - if: ${{ steps.upload-error-image.outputs.artifact-url != '' }}
+        run: sed -i -e 's/null/"${{steps.upload-error-image.outputs.artifact-url}}"/g' output.json
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.episode-number }}.json
           path: output.json
+          if-no-files-found: error
   summarize-result:
     name: Summarize results
     runs-on: ubuntu-latest

@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "rootDir": "src",
     "outDir": "dist",
     "composite": true,
@@ -8,5 +9,5 @@
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"],
-  "references": [{ "path": "../core" }]
+  "references": [{ "path": "../core" }, { "path": "../log" }]
 }

@@ -1,1 +1,2 @@
-export * from "./browser-context.js";
+export * from "./browser-scraper.js";
+export * from "./page-scraper.js";

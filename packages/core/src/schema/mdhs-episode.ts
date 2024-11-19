@@ -1,6 +1,7 @@
 import { Type } from "@sinclair/typebox";
 import { bufferSchema } from "./buffer.js";
 import { dateTimeSchema } from "./date-time.js";
+import type { StaticDecode } from "@sinclair/typebox";
 
 export const mdhsEpisodeSchema = Type.Object({
   airDate: dateTimeSchema,
@@ -18,3 +19,5 @@ export const mdhsEpisodeSchema = Type.Object({
   thumbnails: Type.Optional(Type.Array(bufferSchema)),
   tvSeason: Type.String()
 });
+
+export type MdhsEpisodeSchema = StaticDecode<typeof mdhsEpisodeSchema>;

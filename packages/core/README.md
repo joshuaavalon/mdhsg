@@ -1,1 +1,1 @@
-# @joshuaavalon/mdhsg-core
+# @mdhsg/core

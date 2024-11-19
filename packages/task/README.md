@@ -1,1 +1,1 @@
-# @joshuaavalon/mdhsg-task
+# @mdhsg/task

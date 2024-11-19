@@ -1,5 +1,5 @@
 {
-  "name": "@joshuaavalon/mdhsg-task",
+  "name": "@mdhsg/task",
   "version": "1.0.0",
   "description": "",
   "type": "module",
@@ -9,7 +9,12 @@
   "scripts": {
     "run": "node ./dist/index.js"
   },
-  "imports": {},
+  "imports": {
+    "#type": {
+      "types": "./dist/type.d.ts",
+      "import": "./dist/type.js"
+    }
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -33,7 +38,9 @@
   "author": "Joshua Avalon",
   "license": "Apache-2.0",
   "dependencies": {
-    "@joshuaavalon/mdhsg-core": "^1.0.0"
+    "@mdhsg/browser": "^1.0.0",
+    "@mdhsg/core": "^1.0.0",
+    "@mdhsg/log": "^1.0.0"
   },
   "devDependencies": {}
 }

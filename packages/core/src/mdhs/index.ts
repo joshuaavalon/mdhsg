@@ -1,2 +1,1 @@
-export type * from "./context.js";
-export * from "./core.js";
+export * from "./context.js";
