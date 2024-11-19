@@ -52,7 +52,7 @@ jobs:
           path: error.webp
           if-no-files-found: ignore
       - if: ${{ steps.upload-error-image.outputs.artifact-url != '' }}
-        run: sed -i -e 's/null/"${{ steps.upload-error-image.outputs.artifact-url }}"/g' output.json
+        run: sed -i -e 's|null|"${{ steps.upload-error-image.outputs.artifact-url }}"|g' output.json
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.episode-number }}.json
