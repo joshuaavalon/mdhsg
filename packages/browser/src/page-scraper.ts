@@ -100,7 +100,7 @@ export class PageScraper {
       timeout = defaultOpts.timeout,
       viewportSize = defaultOpts.viewportSize
     } = opts;
-    logger.info("Creating page");
+    logger.info("Start creating page");
     const page = await browser.newPage();
     page.setDefaultTimeout(timeout.milliseconds);
     await page.setViewportSize(viewportSize);
@@ -114,8 +114,10 @@ export class PageScraper {
       });
     }
     if (initialUrl) {
+      logger.info(`Going to ${initialUrl}`);
       await page.goto(initialUrl);
     }
+    logger.info("End creating page");
     const root = page.locator(rootSelector);
     return new PageScraper({ page, root });
   }
