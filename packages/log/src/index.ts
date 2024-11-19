@@ -7,7 +7,7 @@ export type CreateLoggerOptions = LoggerOptions;
 export function createLogger(opts?: LoggerOptions): Logger {
   const defaultOpts: LoggerOptions = {
     level: "info",
-    redact: ["result.*[*].data"],
+    redact: ["err.screenshot", "err.*.screenshot"],
     serializers: { err: pinoStd.errWithCause },
     transport: {
       options: { colorize: true },
