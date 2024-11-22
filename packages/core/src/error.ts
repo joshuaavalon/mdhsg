@@ -28,7 +28,7 @@ export class LoggableError extends Error {
       return null;
     }
     const mimeType = await imageType(this.screenshot);
-    return `data:${mimeType};base64,${this.screenshot.toString("base64")}`;
+    return `data:${mimeType?.mime};base64,${this.screenshot.toString("base64")}`;
   }
 
   public static fromValidation(errors: ValueErrorIterator): LoggableError {
