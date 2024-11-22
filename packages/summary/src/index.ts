@@ -1,6 +1,8 @@
 import { opendir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { env } from "node:process";
+import { summary } from "@actions/core";
+import type { SummaryTableRow } from "@actions/core/lib/summary.js";
 import type { TaskResult } from "@mdhsg/task/type";
 
 const baseDir = join(env.GITHUB_WORKSPACE ?? "", "output");
@@ -19,18 +21,24 @@ async function readResultJson(): Promise<TaskResult[]> {
 }
 
 async function main(): Promise<void> {
-  let summary = "# Result";
-  summary += "| Episode | Result | Screenshot |";
-  summary += "| ------- | ------ | ---------- |";
+  summary.addHeading("Result", 1);
+  const resultTable: SummaryTableRow[] = [[
+    { data: "Episode", header: true },
+    { data: "Result", header: true },
+    { data: "Screenshot", header: true }
+  ]];
   for (const result of await readResultJson()) {
     const { episodeNum, screenshot, success } = result;
     const image = screenshot
       ? `<img src=${screenshot}" />`
       : "N/A";
-    summary += `| ${episodeNum} | ${success} | ${image} |`;
+    resultTable.push([
+      { data: `${episodeNum}` },
+      { data: `${success}` },
+      { data: image }
+    ]);
   }
-
-  env.GITHUB_STEP_SUMMARY = summary;
+  summary.addTable(resultTable);
 }
 
 

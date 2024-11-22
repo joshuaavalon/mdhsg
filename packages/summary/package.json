@@ -41,7 +41,7 @@
   "author": "Joshua Avalon",
   "license": "Apache-2.0",
   "dependencies": {
+    "@actions/core": "^1.11.1",
     "@mdhsg/task": "^1.0.0"
-  },
-  "devDependencies": {}
+  }
 }

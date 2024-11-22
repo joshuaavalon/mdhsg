@@ -23,13 +23,15 @@ export class BrowserScraper {
   }
 
   public static async chromium(opts?: Partial<LaunchOptions>): Promise<BrowserScraper> {
-    logger.info("Launching Chromium");
-    const browser = await chromium.launch({ ...defaultOpts, ...opts });
+    const launchOpts = { ...defaultOpts, ...opts };
+    logger.info({ launchOpts, type: "chromium" }, "Launching browser");
+    const browser = await chromium.launch(launchOpts);
     return new BrowserScraper(browser);
   }
 
   public static async firefox(opts?: Partial<LaunchOptions>): Promise<BrowserScraper> {
-    logger.info("Launching Firefox");
+    const launchOpts = { ...defaultOpts, ...opts };
+    logger.info({ launchOpts, type: "firefox" }, "Launching browser");
     const browser = await firefox.launch({ ...defaultOpts, ...opts });
     return new BrowserScraper(browser);
   }
