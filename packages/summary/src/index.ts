@@ -2,6 +2,7 @@ import { opendir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { env } from "node:process";
 import { summary } from "@actions/core";
+import { logger } from "@mdhsg/log";
 import type { SummaryTableRow } from "@actions/core/lib/summary.js";
 import type { TaskResult } from "@mdhsg/task/type";
 
@@ -11,6 +12,7 @@ async function readResultJson(): Promise<TaskResult[]> {
   const result: TaskResult[] = [];
   const dir = await opendir(baseDir);
   for await (const dirent of dir) {
+    logger.info({ name: dirent.name }, "Found result");
     if (!/\d+.json/gu.test(dirent.name) || !dirent.isFile()) {
       continue;
     }
