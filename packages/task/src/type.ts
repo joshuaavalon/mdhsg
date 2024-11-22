@@ -9,3 +9,17 @@ export interface TaskContext {
   browser: BrowserScraper;
   episodeNum: number;
 }
+
+export interface TaskFailureResult {
+  episodeNum: number;
+  screenshot: null | string;
+  success: false;
+}
+
+export interface TaskSuccessResult {
+  episodeNum: number;
+  screenshot: null ;
+  success: true;
+}
+
+export type TaskResult = TaskFailureResult | TaskSuccessResult;

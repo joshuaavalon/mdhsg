@@ -1,11 +1,16 @@
-import { writeFile } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
+import { env } from "node:process";
 import { BrowserScraper } from "@mdhsg/browser";
 import { LoggableError } from "@mdhsg/core/error";
 import { logger } from "@mdhsg/log";
-import type { Task } from "./type.js";
+import type { Task, TaskResult } from "./type.js";
 
-const baseDir = process.env.GITHUB_WORKSPACE ?? "";
+const baseDir = join(env.GITHUB_WORKSPACE ?? "", "output");
+
+async function writeTaskResult(result: TaskResult): Promise<void> {
+  await writeFile(join(baseDir, "result.json"), JSON.stringify(result), { encoding: "utf-8" });
+}
 
 async function main(args: string[]): Promise<void> {
   if (!Array.isArray(args) || args.length !== 2) {
@@ -20,6 +25,7 @@ async function main(args: string[]): Promise<void> {
   if (Number.isNaN(episodeNum)) {
     throw new Error(`Invalid episodeNum: ${series}`);
   }
+  await mkdir(baseDir);
   const module = await import(`./task/${series}.js`);
   const task = module.default as Task;
   const browser = await BrowserScraper.chromium();
@@ -28,14 +34,11 @@ async function main(args: string[]): Promise<void> {
     await task.main({ browser, episodeNum });
   } catch (err) {
     logger.error({ episodeNum, err }, "Failed to scrape episode");
-    const json = { screenshot: null, success: false };
-    if (err instanceof LoggableError) {
-      const screenshot = err.getScreenshot();
-      if (screenshot) {
-        await writeFile(join(baseDir, "error.webp"), screenshot);
-      }
-    }
-    await writeFile(join(baseDir, "output.json"), JSON.stringify(json), { encoding: "utf-8" });
+    await writeTaskResult({
+      episodeNum,
+      screenshot: err instanceof LoggableError ? await err.getScreenshotDataUrl() : null,
+      success: false
+    });
   } finally {
     await browser.close();
     logger.info({ episodeNum }, "End task");

@@ -44,15 +44,6 @@ jobs:
       - run: npm ci && npx playwright install --with-deps
       - run: npm run build
       - run: npm run run-task -- "${{ inputs.series-id }}" "${{ matrix.episode-number }}"
-      - run: ls -la
-      - uses: actions/upload-artifact@v4
-        id: upload-error-image
-        with:
-          name: ${{ matrix.episode-number }}-error.webp
-          path: error.webp
-          if-no-files-found: ignore
-      - if: ${{ steps.upload-error-image.outputs.artifact-url != '' }}
-        run: sed -i -e 's|null|"${{ steps.upload-error-image.outputs.artifact-url }}"|g' output.json
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.episode-number }}.json
@@ -70,10 +61,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: latest
-      - run: npm ci
+      - run: npm ci && npx playwright install --with-deps
       - run: npm run build
       - uses: actions/download-artifact@v4
         with:
           path: output
           pattern: "*.json"
-      - run: ls -la ./output
+      - run: npm run summarize-result

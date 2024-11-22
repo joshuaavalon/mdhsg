@@ -1,12 +1,14 @@
 {
-  "name": "@mdhsg/core",
+  "name": "@mdhsg/summary",
   "version": "1.0.0",
   "description": "",
   "type": "module",
   "private": true,
   "types": "./dist/index.d.ts",
   "module": "./dist/index.js",
-  "scripts": {},
+  "scripts": {
+    "run": "node ./dist/index.js"
+  },
   "imports": {},
   "exports": {
     ".": {
@@ -39,13 +41,7 @@
   "author": "Joshua Avalon",
   "license": "Apache-2.0",
   "dependencies": {
-    "@mdhsg/log": "^1.0.0",
-    "@sinclair/typebox": "^0.34.0",
-    "image-type": "^5.2.0",
-    "luxon": "^3.5.0",
-    "sharp": "^0.33.5"
+    "@mdhsg/task": "^1.0.0"
   },
-  "devDependencies": {
-    "@types/luxon": "^3.4.2"
-  }
+  "devDependencies": {}
 }

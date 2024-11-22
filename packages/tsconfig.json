@@ -4,6 +4,7 @@
     { "path": "./browser" },
     { "path": "./core" },
     { "path": "./log" },
+    { "path": "./summary" },
     { "path": "./task" }
   ]
 }

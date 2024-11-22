@@ -9,6 +9,7 @@
     "build": "tsc --build ./packages/tsconfig.json",
     "test": "npm run --workspaces --if-present test",
     "run-task": "npm run --workspace @mdhsg/task run",
+    "summarize-result": "npm run --workspace @mdhsg/summary run",
     "lint": "eslint"
   },
   "workspaces": [
