@@ -6,6 +6,7 @@
     { "path": "./format" },
     { "path": "./log" },
     { "path": "./summary" },
-    { "path": "./task" }
+    { "path": "./task" },
+    { "path": "./tmdb" }
   ]
 }
