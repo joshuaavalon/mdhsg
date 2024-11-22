@@ -12,11 +12,7 @@ async function readResultJson(): Promise<TaskResult[]> {
   const result: TaskResult[] = [];
   const dir = await opendir(baseDir);
   for await (const dirent of dir) {
-    logger.info({
-      fileName: dirent.name,
-      isFile: dirent.isFile(),
-      re: /\d+.json/gu.test(dirent.name)
-    }, "Found file");
+    logger.info({ fileName: dirent.name }, "Found file");
     if (!/\d+.json/gu.test(dirent.name) || !dirent.isFile()) {
       continue;
     }
