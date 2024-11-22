@@ -53,8 +53,8 @@ jobs:
       - run: npm run run-task -- "${{ inputs.series-id }}" "${{ matrix.episode-number }}"
       - uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.episode-number }}.json
-          path: ./output/result.json
+          name: result
+          path: ./output/${{ matrix.episode-number }}.json
           if-no-files-found: error
   summarize-result:
     name: Summarize results
