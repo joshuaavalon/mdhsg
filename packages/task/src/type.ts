@@ -12,13 +12,11 @@ export interface TaskContext {
 
 export interface TaskFailureResult {
   episodeNum: number;
-  screenshot: null | string;
   success: false;
 }
 
 export interface TaskSuccessResult {
   episodeNum: number;
-  screenshot: null ;
   success: true;
 }
 

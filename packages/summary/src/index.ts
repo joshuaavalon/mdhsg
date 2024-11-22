@@ -28,31 +28,17 @@ async function main(): Promise<void> {
   summary.addHeading("Result", 1);
   const resultTable: SummaryTableRow[] = [[
     { data: "Episode", header: true },
-    { data: "Result", header: true },
-    { data: "Screenshot", header: true }
+    { data: "Result", header: true }
   ]];
   const resultList = await readResultJson();
   logger.info({ resultList }, "Start process result");
   for (const result of resultList) {
-    const { episodeNum, screenshot, success } = result;
-    const image = screenshot
-      ? `<img src="${screenshot}" />`
-      : "N/A";
+    const { episodeNum, success } = result;
     resultTable.push([
       { data: `${episodeNum}` },
-      { data: `${success}` },
-      { data: image }
+      { data: `${success}` }
     ]);
-    logger.info({ episodeNum, screenshot, success }, "result");
-    summary.addRaw(image);
-    summary.addEOL();
-    if (screenshot) {
-      summary.addEOL();
-      summary.addImage(screenshot, "a");
-      summary.addEOL();
-      summary.addRaw(`![a](${screenshot})`);
-    }
-    summary.addEOL();
+    logger.info({ episodeNum, success }, "result");
   }
   summary.addTable(resultTable);
   await summary.write();
