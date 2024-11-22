@@ -36,7 +36,7 @@ async function main(): Promise<void> {
   for (const result of resultList) {
     const { episodeNum, screenshot, success } = result;
     const image = screenshot
-      ? `<img src=${screenshot}" />`
+      ? `<img src="${screenshot}" />`
       : "N/A";
     resultTable.push([
       { data: `${episodeNum}` },
