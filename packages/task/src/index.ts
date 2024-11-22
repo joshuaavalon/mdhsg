@@ -9,7 +9,9 @@ import type { Task, TaskResult } from "./type.js";
 const baseDir = join(env.GITHUB_WORKSPACE ?? "", "output");
 
 async function writeTaskResult(result: TaskResult): Promise<void> {
-  await writeFile(join(baseDir, "result.json"), JSON.stringify(result), { encoding: "utf-8" });
+  const filePath = join(baseDir, "result.json");
+  logger.info({ filePath }, "Writing task result");
+  await writeFile(filePath, JSON.stringify(result), { encoding: "utf-8" });
 }
 
 async function main(args: string[]): Promise<void> {
