@@ -39,6 +39,7 @@ async function main(): Promise<void> {
     ]);
   }
   summary.addTable(resultTable);
+  await summary.write();
 }
 
 
