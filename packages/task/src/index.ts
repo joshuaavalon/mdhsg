@@ -2,8 +2,10 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { env } from "node:process";
 import { BrowserScraper } from "@mdhsg/browser";
+import { mdhsEpisodeSchema } from "@mdhsg/core";
 import { LoggableError } from "@mdhsg/core/error";
 import { logger } from "@mdhsg/log";
+import { Value } from "@sinclair/typebox/value";
 import imageType from "image-type";
 import type { Task, TaskResult } from "./type.js";
 
@@ -28,7 +30,6 @@ async function writeScreenshot(result: TaskResult, image: Buffer | null): Promis
   await writeFile(filePath, image);
 }
 
-
 async function main(args: string[]): Promise<void> {
   if (!Array.isArray(args) || args.length !== 2) {
     throw new Error(`Invalid args: ${JSON.stringify(args)}`);
@@ -49,8 +50,12 @@ async function main(args: string[]): Promise<void> {
   let taskResult: TaskResult;
   try {
     logger.info({ episodeNum }, "Start task");
-    await task.main({ browser, episodeNum });
-    taskResult = { episodeNum, success: true };
+    const data = await task({ browser, episodeNum });
+    taskResult = {
+      data: Value.Decode(mdhsEpisodeSchema, data),
+      episodeNum,
+      success: true
+    };
     await writeTaskResult(taskResult);
   } catch (err) {
     logger.error({ episodeNum, err }, "Failed to scrape episode");

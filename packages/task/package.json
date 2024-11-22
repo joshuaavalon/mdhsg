@@ -10,6 +10,14 @@
     "run": "node ./dist/index.js"
   },
   "imports": {
+    "#kana": {
+      "types": "./dist/kana/index.d.ts",
+      "import": "./dist/kana/index.js"
+    },
+    "#utils": {
+      "types": "./dist/utils/index.d.ts",
+      "import": "./dist/utils/index.js"
+    },
     "#type": {
       "types": "./dist/type.d.ts",
       "import": "./dist/type.js"
@@ -44,7 +52,8 @@
   "dependencies": {
     "@mdhsg/browser": "^1.0.0",
     "@mdhsg/core": "^1.0.0",
-    "@mdhsg/log": "^1.0.0"
+    "@mdhsg/log": "^1.0.0",
+    "@mdhsg/format": "^1.0.0"
   },
   "devDependencies": {}
 }

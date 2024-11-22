@@ -27,6 +27,7 @@ interface PageScraperOptions {
 export interface CreatePageScraperOptions {
   blockTypes?: ResourceType[];
   browser: Browser;
+  headers?: Record<string, string>;
   initialUrl?: string;
   rootSelector?: string;
   timeout?: Duration;
@@ -61,12 +62,19 @@ export class PageScraper {
     this.root = callback(this.root, this.page);
   }
 
-  public async run(callback: PageCallback<Promise<void>>): Promise<void> {
-    await callback(this.root, this.page);
+  public async run<T>(callback: PageCallback<T>): Promise<T> {
+    return await callback(this.root, this.page);
   }
 
-  public async resolveUrl(callback: PageCallback<Promise<string>>): Promise<string> {
+  public async goto(...params: Parameters<Page["goto"]>): ReturnType<Page["goto"]> {
+    return await this.page.goto(...params);
+  }
+
+  public async resolveUrl(callback: PageCallback<Promise<null | string>>): Promise<string> {
     const relativeUrl = await callback(this.root, this.page);
+    if (!relativeUrl) {
+      throw new Error("Empty relative url");
+    }
     return new URL(relativeUrl, this.page.url()).href;
   }
 
@@ -79,15 +87,15 @@ export class PageScraper {
     }, selectors);
   }
 
-  public async scrapeName(callback: PageCallback<Locator>): Promise<string> {
+  public async scrapeString(callback: PageCallback<Promise<null | string>>): Promise<string> {
     try {
-      const value = await callback(this.root, this.page).textContent();
+      const value = await callback(this.root, this.page);
       if (!value) {
-        throw new Error("Empty name scraped");
+        throw new Error("Empty string scraped");
       }
       return value;
     } catch (err) {
-      throw await this.createError({ err }, "Cannot scrape name");
+      throw await this.createError({ err }, "Cannot scrape string");
     }
   }
 
@@ -95,6 +103,7 @@ export class PageScraper {
     const {
       blockTypes = defaultOpts.blockTypes,
       browser,
+      headers,
       initialUrl,
       rootSelector = defaultOpts.rootSelector,
       timeout = defaultOpts.timeout,
@@ -102,6 +111,9 @@ export class PageScraper {
     } = opts;
     logger.info("Start creating page");
     const page = await browser.newPage();
+    if (headers) {
+      page.setExtraHTTPHeaders(headers);
+    }
     page.setDefaultTimeout(timeout.as("millisecond"));
     await page.setViewportSize(viewportSize);
     if (blockTypes.length > 0) {

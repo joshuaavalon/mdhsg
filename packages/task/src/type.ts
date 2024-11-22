@@ -1,8 +1,8 @@
 import type { BrowserScraper } from "@mdhsg/browser";
-import type { MdhsEpisodeSchema } from "@mdhsg/core";
+import type { MdhsEpisodeSchema, MdhsEpisodeSchemaJson } from "@mdhsg/core";
 
 export interface Task {
-  main: (ctx: TaskContext) => Promise<MdhsEpisodeSchema>;
+  (ctx: TaskContext): Promise<MdhsEpisodeSchema>;
 }
 
 export interface TaskContext {
@@ -16,6 +16,7 @@ export interface TaskFailureResult {
 }
 
 export interface TaskSuccessResult {
+  data: MdhsEpisodeSchemaJson;
   episodeNum: number;
   success: true;
 }

@@ -3,6 +3,7 @@
   "references": [
     { "path": "./browser" },
     { "path": "./core" },
+    { "path": "./format" },
     { "path": "./log" },
     { "path": "./summary" },
     { "path": "./task" }

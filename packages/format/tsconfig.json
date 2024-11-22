@@ -8,10 +8,5 @@
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"],
-  "references": [
-    { "path": "../browser" },
-    { "path": "../core" },
-    { "path": "../format" },
-    { "path": "../log" }
-  ]
+  "references": []
 }
