@@ -12,12 +12,14 @@ async function readResultJson(): Promise<TaskResult[]> {
   const result: TaskResult[] = [];
   const dir = await opendir(baseDir);
   for await (const dirent of dir) {
-    logger.info({ name: dirent.name }, "Found result");
+    logger.info({ fileName: dirent.name }, "Found file");
     if (!/\d+.json/gu.test(dirent.name) || !dirent.isFile()) {
       continue;
     }
     const fileContent = await readFile(join(baseDir, dirent.name), { encoding: "utf-8" });
-    result.push(JSON.parse(fileContent) as TaskResult);
+    const json = JSON.parse(fileContent);
+    logger.info({ fileName: dirent.name, json }, "Found result");
+    result.push(json as TaskResult);
   }
   return result.toSorted((a, b) => a.episodeNum - b.episodeNum);
 }
@@ -29,7 +31,9 @@ async function main(): Promise<void> {
     { data: "Result", header: true },
     { data: "Screenshot", header: true }
   ]];
-  for (const result of await readResultJson()) {
+  const resultList = await readResultJson();
+  logger.info({ resultList }, "Start process result");
+  for (const result of resultList) {
     const { episodeNum, screenshot, success } = result;
     const image = screenshot
       ? `<img src=${screenshot}" />`
