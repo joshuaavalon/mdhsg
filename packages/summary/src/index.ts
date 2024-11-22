@@ -46,6 +46,13 @@ async function main(): Promise<void> {
     logger.info({ episodeNum, screenshot, success }, "result");
     summary.addRaw(image);
     summary.addEOL();
+    if (screenshot) {
+      summary.addEOL();
+      summary.addImage(screenshot, "a");
+      summary.addEOL();
+      summary.addRaw(`![a](${screenshot})`);
+    }
+    summary.addEOL();
   }
   summary.addTable(resultTable);
   await summary.write();
