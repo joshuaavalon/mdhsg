@@ -1,1 +1,1 @@
-export * from "./context.js";
+export type * from "./scraper.js";

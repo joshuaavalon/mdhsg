@@ -7,7 +7,12 @@
   "types": "./dist/index.d.ts",
   "module": "./dist/index.js",
   "scripts": {},
-  "imports": {},
+  "imports": {
+    "#type": {
+      "types": "./dist/type/index.d.ts",
+      "import": "./dist/type/index.js"
+    }
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

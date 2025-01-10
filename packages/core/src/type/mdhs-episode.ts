@@ -20,6 +20,6 @@ export const mdhsEpisodeSchema = Type.Object({
   tvSeason: Type.String()
 });
 
-export type MdhsEpisodeSchema = StaticEncode<typeof mdhsEpisodeSchema>;
+export type MdhsEpisode = StaticEncode<typeof mdhsEpisodeSchema>;
 
-export type MdhsEpisodeSchemaJson = StaticDecode<typeof mdhsEpisodeSchema>;
+export type MdhsEpisodeJson = StaticDecode<typeof mdhsEpisodeSchema>;

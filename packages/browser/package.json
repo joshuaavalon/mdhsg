@@ -6,8 +6,15 @@
   "private": true,
   "types": "./dist/index.d.ts",
   "module": "./dist/index.js",
-  "scripts": {},
-  "imports": {},
+  "scripts": {
+    "test": "set NODE_OPTIONS=--enable-source-maps && mocha"
+  },
+  "imports": {
+    "#plugins": {
+      "types": "./dist/plugins/index.d.ts",
+      "import": "./dist/plugins/index.js"
+    }
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -31,10 +38,12 @@
   "author": "Joshua Avalon",
   "license": "Apache-2.0",
   "dependencies": {
+    "@ghostery/adblocker-puppeteer": "^2.3.1",
     "@mdhsg/core": "^1.0.0",
-    "@mdhsg/log": "^1.0.0",
     "luxon": "^3.5.0",
-    "playwright": "^1.48.2"
+    "playwright": "^1.48.2",
+    "playwright-extra": "^4.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
   },
   "devDependencies": {
     "@types/luxon": "^3.4.2"

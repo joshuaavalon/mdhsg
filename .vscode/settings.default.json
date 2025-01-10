@@ -1,4 +1,11 @@
 {
   "eslint.useFlatConfig": true,
-  "cSpell.words": ["mdhs", "mdhsg", "buildable", "texttrack", "tmdb"]
+  "cSpell.words": [
+    "adblocker",
+    "mdhs",
+    "mdhsg",
+    "buildable",
+    "texttrack",
+    "tmdb"
+  ]
 }

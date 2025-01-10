@@ -1,2 +1,2 @@
-export * from "./browser-scraper.js";
-export * from "./page-scraper.js";
+export * from "./browser.js";
+export * from "./page.js";
