@@ -8,6 +8,14 @@
   "module": "./dist/index.js",
   "scripts": {},
   "imports": {
+    "#builder": {
+      "types": "./dist/builder.d.ts",
+      "import": "./dist/builder.js"
+    },
+    "#error": {
+      "types": "./dist/error/index.d.ts",
+      "import": "./dist/error/index.js"
+    },
     "#type": {
       "types": "./dist/type/index.d.ts",
       "import": "./dist/type/index.js"
@@ -23,8 +31,12 @@
       "import": "./dist/builder.js"
     },
     "./error": {
-      "types": "./dist/error.d.ts",
-      "import": "./dist/error.js"
+      "types": "./dist/error/index.d.ts",
+      "import": "./dist/error/index.js"
+    },
+    "./type": {
+      "types": "./dist/type/index.d.ts",
+      "import": "./dist/type/index.js"
     }
   },
   "homepage": "https://github.com/joshuaavalon/mdhsg#readme",
@@ -44,10 +56,12 @@
   "author": "Joshua Avalon",
   "license": "Apache-2.0",
   "dependencies": {
-    "@mdhsg/log": "^1.0.0",
     "@sinclair/typebox": "^0.34.0",
     "image-type": "^5.2.0",
     "luxon": "^3.5.0",
+    "p-queue": "^8.0.1",
+    "pino": "^9.5.0",
+    "pino-pretty": "^13.0.0",
     "sharp": "^0.33.5"
   },
   "devDependencies": {

@@ -5,6 +5,7 @@
     { "path": "./core" },
     { "path": "./format" },
     { "path": "./log" },
+    { "path": "./plugin" },
     { "path": "./summary" },
     { "path": "./task" },
     { "path": "./tmdb" }
